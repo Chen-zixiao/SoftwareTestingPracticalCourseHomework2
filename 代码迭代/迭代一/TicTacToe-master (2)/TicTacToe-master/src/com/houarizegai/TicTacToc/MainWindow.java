@@ -5,7 +5,9 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+/**
+ * @author zixiao chen
+ */
 public class MainWindow extends JFrame implements ActionListener{
     
     private final JLabel labelSelect;
@@ -13,7 +15,10 @@ public class MainWindow extends JFrame implements ActionListener{
     private boolean showHidePcPlay = false; // 是否展示难度界面的判断变量
     private final Font FontForLabel = new Font("Comic Sans MS", Font.PLAIN, 16); // 根据Font的数值创建不同的实例
     private static int i = 0; // 循环使用变量
-    //主界面
+
+    /**
+     *
+     */
     MainWindow() {
 
         labelSelect = new JLabel(PlayWindow.setColor("请选择游戏模式 :", "blue")); // 创建新的JLabel实例并设置颜色

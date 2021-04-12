@@ -4,36 +4,40 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+/**
+ * @author zixiao chen
+ */
 public class PlayWindow extends JFrame implements ActionListener{
 	
-	private JLabel 	TableOfScore; // 分数板部件
+	private JLabel tableOfScore; // 分数板部件
 	private int xScore = 0; // X棋的分数
     private int oScore = 0; // O棋的分数
-    private JButton buttonsXO[]; // 输入X或O的按钮
+    private JButton[] buttonsXO; // 输入X或O的按钮
     private JButton btnReset; // 清空棋盘并重置分数按钮
     private JButton btnClear; // 只清空棋盘的按钮
     private JButton btnBackToMain; // 返回主界面的按钮
     private final static int BUTTON_XO_WIDTH = 80;
     private final static int BUTTON_XO_HEIGHT = 80;
-	private final static int POSITION_XO_H[] =
+	private final static int[] POSITION_XO_H =
             {30, BUTTON_XO_WIDTH * 1 + 30, BUTTON_XO_WIDTH * 2 + 30, BUTTON_XO_WIDTH * 3 + 30}; // 按钮的水平方向的尺寸
-	private final static int POSITION_XO_V[] =
+	private final static int[] POSITION_XO_V =
             {120, BUTTON_XO_WIDTH * 1 + 120, BUTTON_XO_WIDTH * 2 + 120, BUTTON_XO_WIDTH * 3 + 120 + 20}; //按钮的竖直方向的尺寸
 	private static int i = 0; // 循环部分使用变量
 
 	private final int CHOIX_LEVEL;
     /* 代表双人对战模式*/
+
     private final int CHOIX_FRIEND = 0;
 
     
     /* 双人模式使用的变量 */
+
     private static boolean player1 = true; // 判断当前玩家的变量
     
 
@@ -42,14 +46,15 @@ public class PlayWindow extends JFrame implements ActionListener{
     	
     	this.CHOIX_LEVEL = CHOIX_LEVEL;
     	
-    	if (this.CHOIX_LEVEL == CHOIX_FRIEND)
-    		this.setTitle("双人对战");
+    	if (this.CHOIX_LEVEL == CHOIX_FRIEND) {
+            this.setTitle("双人对战");
+        }
     	
-    	TableOfScore = new JLabel("");//初始化分数板
+    	tableOfScore = new JLabel("");//初始化分数板
         printScore(xScore, oScore); // 打印分数
-        TableOfScore.setBounds(170, 10, 200, 100); // 设置分数板大小
-        TableOfScore.setFont(new Font("Comic Sans MS", Font.PLAIN, 16)); // 设置Font
-        this.add(TableOfScore);
+        tableOfScore.setBounds(170, 10, 200, 100); // 设置分数板大小
+        tableOfScore.setFont(new Font("Comic Sans MS", Font.PLAIN, 16)); // 设置Font
+        this.add(tableOfScore);
 
         buttonsXO = new JButton[9];        
 
@@ -97,7 +102,7 @@ public class PlayWindow extends JFrame implements ActionListener{
         });
         add(btnBackToMain);
 
-        this.setBounds(400, 170, buttonsXO[0].getWidth() * 3 + 75, TableOfScore.getHeight() + buttonsXO[0].getHeight() * 3 + btnReset.getHeight() + btnBackToMain.getHeight() + 120);
+        this.setBounds(400, 170, buttonsXO[0].getWidth() * 3 + 75, tableOfScore.getHeight() + buttonsXO[0].getHeight() * 3 + btnReset.getHeight() + btnBackToMain.getHeight() + 120);
         this.setLayout(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
@@ -108,8 +113,9 @@ public class PlayWindow extends JFrame implements ActionListener{
     	//各模式的下棋按钮点击触发的逻辑
     	if (CHOIX_LEVEL == CHOIX_FRIEND) {
     		for(i = 0; i < 9; i++){
-        		if (e.getSource().equals(buttonsXO[i]))
-        			printXOForFriend(i);
+        		if (e.getSource().equals(buttonsXO[i])) {
+                    printXOForFriend(i);
+                }
     	    }
     	}
     }
@@ -135,12 +141,12 @@ public class PlayWindow extends JFrame implements ActionListener{
         	p2 = "O";
         }
         	
-        TableOfScore.setText("<html><table border='1'><tr><th colspan='2'>Score :&nbsp;&nbsp;&nbsp;</th></tr>"
+        tableOfScore.setText("<html><table border='1'><tr><th colspan='2'>Score :&nbsp;&nbsp;&nbsp;</th></tr>"
                                             + "<tr><td><b>"+ p1 + "</b></td><td>" + xFormat + "</td></tr>"
                                             + "<tr><td><b>"+ p2 + "</b></td><td>" + oFormat + "</td></tr></html>");
     }
     
-	private boolean getResult(boolean Player1Win) { // 平局或胜利时弹出窗口
+	private boolean getResult(boolean player1Win) { // 平局或胜利时弹出窗口
         if (((buttonsXO[0].getText().equals(buttonsXO[3].getText())) && (buttonsXO[0].getText().equals(buttonsXO[6].getText())) && (!buttonsXO[0].getText().equals("")))
                 || ((buttonsXO[1].getText().equals(buttonsXO[4].getText())) && (buttonsXO[1].getText().equals(buttonsXO[7].getText())) && (!buttonsXO[1].getText().equals("")))
                 || ((buttonsXO[2].getText().equals(buttonsXO[5].getText())) && (buttonsXO[2].getText().equals(buttonsXO[8].getText())) && (!buttonsXO[2].getText().equals("")))
@@ -150,18 +156,20 @@ public class PlayWindow extends JFrame implements ActionListener{
                 || ((buttonsXO[0].getText().equals(buttonsXO[4].getText())) && (buttonsXO[0].getText().equals(buttonsXO[8].getText())) && (!buttonsXO[0].getText().equals("")))
                 || ((buttonsXO[2].getText().equals(buttonsXO[4].getText())) && (buttonsXO[2].getText().equals(buttonsXO[6].getText())) && (!buttonsXO[2].getText().equals("")))) {
         	
-            if (Player1Win) {
+            if (player1Win) {
                 xScore++;
-                if (CHOIX_LEVEL == CHOIX_FRIEND)
-                	JOptionPane.showMessageDialog(null, "<html>" + setColorOnly("玩家 1 (X) ", "green") + setColorOnly("获胜 !" , "green")  + "</html>");
-                else
-                	JOptionPane.showMessageDialog(null, setColor("你获胜了  ^_^ !" , "green"));
+                if (CHOIX_LEVEL == CHOIX_FRIEND) {
+                    JOptionPane.showMessageDialog(null, "<html>" + setColorOnly("玩家 1 (X) ", "green") + setColorOnly("获胜 !", "green") + "</html>");
+                } else {
+                    JOptionPane.showMessageDialog(null, setColor("你获胜了  ^_^ !", "green"));
+                }
             } else {
                 oScore++;
-                if (CHOIX_LEVEL == CHOIX_FRIEND)
-                	JOptionPane.showMessageDialog(null, "<html>" + setColorOnly("玩家 2 (O) ", "blue") + setColorOnly("获胜 !" , "green")  + "</html>");
-                else
-                	JOptionPane.showMessageDialog(null, "<html>" + setColorOnly("你失败了 : (", "red") + "<br>人机 " + setColor("获胜 !", "green") + "</html>");
+                if (CHOIX_LEVEL == CHOIX_FRIEND) {
+                    JOptionPane.showMessageDialog(null, "<html>" + setColorOnly("玩家 2 (O) ", "blue") + setColorOnly("获胜 !", "green") + "</html>");
+                } else {
+                    JOptionPane.showMessageDialog(null, "<html>" + setColorOnly("你失败了 : (", "red") + "<br>人机 " + setColor("获胜 !", "green") + "</html>");
+                }
             }
             printScore(xScore, oScore);
             clear();
