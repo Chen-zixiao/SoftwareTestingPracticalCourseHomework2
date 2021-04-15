@@ -34,11 +34,13 @@ public class PlayWindow extends JFrame implements ActionListener{
 
     
     /* 双人模式使用的变量 */
-    private static boolean player1 = true; // 判断当前玩家的变量
-    
+    public static boolean player1 = true; // 判断当前玩家的变量,true为己方
+    public boolean preplayer=player1;//平局则用此记录上一轮先开始玩家
+    public boolean nextplay=true;//为了记录是否进入下一轮，false为进入下一轮
+    public int whowin=1;//记录谁获胜，1为己方，2为对方，3为平局
+    public boolean isON=false; //记录一局完毕，true为完毕，上面所有值均已更新
 
-    
-    PlayWindow(int CHOIX_LEVEL) {  // CHOIX_LEVEL = 0:双人对战
+    public PlayWindow(int CHOIX_LEVEL) {  // CHOIX_LEVEL = 0:双人对战
     	
     	this.CHOIX_LEVEL = CHOIX_LEVEL;
     	
@@ -54,6 +56,9 @@ public class PlayWindow extends JFrame implements ActionListener{
         buttonsXO = new JButton[9];        
 
         for (i = 0; i < buttonsXO.length; i++) { //设置棋盘
+            //棋盘的排列方式与按钮对应为123
+            //                         456
+            //                         789 的顺序
             buttonsXO[i] = new JButton();
             if (i < 3) {
                 buttonsXO[i].setBounds(POSITION_XO_H[i], POSITION_XO_V[0], BUTTON_XO_WIDTH, BUTTON_XO_HEIGHT);
@@ -107,9 +112,9 @@ public class PlayWindow extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e){
     	//各模式的下棋按钮点击触发的逻辑
     	if (CHOIX_LEVEL == CHOIX_FRIEND) {
-    		for(i = 0; i < 9; i++){
+    		for(i = 0; i < 9; i++){     //九个按键都循环一遍来看哪个被选中了
         		if (e.getSource().equals(buttonsXO[i]))
-        			printXOForFriend(i);
+        			nextplay=printXOForFriend(i);
     	    }
     	}
     }
@@ -152,14 +157,18 @@ public class PlayWindow extends JFrame implements ActionListener{
         	
             if (Player1Win) {
                 xScore++;
-                if (CHOIX_LEVEL == CHOIX_FRIEND)
-                	JOptionPane.showMessageDialog(null, "<html>" + setColorOnly("玩家 1 (X) ", "green") + setColorOnly("获胜 !" , "green")  + "</html>");
+                if (CHOIX_LEVEL == CHOIX_FRIEND) {
+                    JOptionPane.showMessageDialog(null, "<html>" + setColorOnly("玩家 1 (X) ", "green") + setColorOnly("获胜 !", "green") + "</html>");
+                    whowin=1;
+                }
                 else
                 	JOptionPane.showMessageDialog(null, setColor("你获胜了  ^_^ !" , "green"));
             } else {
                 oScore++;
-                if (CHOIX_LEVEL == CHOIX_FRIEND)
-                	JOptionPane.showMessageDialog(null, "<html>" + setColorOnly("玩家 2 (O) ", "blue") + setColorOnly("获胜 !" , "green")  + "</html>");
+                if (CHOIX_LEVEL == CHOIX_FRIEND) {
+                    JOptionPane.showMessageDialog(null, "<html>" + setColorOnly("玩家 2 (O) ", "blue") + setColorOnly("获胜 !", "green") + "</html>");
+                    whowin=2;
+                }
                 else
                 	JOptionPane.showMessageDialog(null, "<html>" + setColorOnly("你失败了 : (", "red") + "<br>人机 " + setColor("获胜 !", "green") + "</html>");
             }
@@ -178,6 +187,8 @@ public class PlayWindow extends JFrame implements ActionListener{
 	                && !buttonsXO[8].getText().equals("")) {
                 JOptionPane.showMessageDialog(null, " Draw !");
                 clear();
+                whowin=3;
+                preplayer=player1;
                 return false;
             }
         }
@@ -204,18 +215,22 @@ public class PlayWindow extends JFrame implements ActionListener{
     }
 
     /* 只在双人对战模式使用的函数 */
-    private void printXOForFriend(int index) { // 打印棋子并检查是否满足结束条件 )
+    private boolean printXOForFriend(int index) { // 打印棋子并检查是否满足结束条件 )
+        boolean res;
     	if (buttonsXO[index].getText().equals("")) {
             if (player1) {
             	buttonsXO[index].setText(setColor("X", "green"));
-            	getResult(player1);
+            	res=getResult(player1);
                 player1 = false;
+                return res;
             } else {
             	buttonsXO[index].setText(setColor("O", "blue"));
-            	getResult(player1);
+            	res=getResult(player1);
                 player1 = true;
+                return res;
             }
     	}
+    	return true;
     }
 
 }
