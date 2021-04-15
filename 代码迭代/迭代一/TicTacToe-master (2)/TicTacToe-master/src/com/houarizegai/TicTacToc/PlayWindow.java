@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class PlayWindow extends JFrame implements ActionListener{
-	
 	private JLabel 	TableOfScore; // 分数板部件
 	private int xScore = 0; // X棋的分数
     private int oScore = 0; // O棋的分数
@@ -38,7 +37,6 @@ public class PlayWindow extends JFrame implements ActionListener{
     public boolean preplayer=player1;//平局则用此记录上一轮先开始玩家
     public boolean nextplay=true;//为了记录是否进入下一轮，false为进入下一轮
     public int whowin=1;//记录谁获胜，1为己方，2为对方，3为平局
-    public boolean isON=false; //记录一局完毕，true为完毕，上面所有值均已更新
 
     public PlayWindow(int CHOIX_LEVEL) {  // CHOIX_LEVEL = 0:双人对战
     	
@@ -97,8 +95,8 @@ public class PlayWindow extends JFrame implements ActionListener{
         btnBackToMain.setBounds(POSITION_XO_H[0], POSITION_XO_V[3] + 50, BUTTON_XO_WIDTH * 3, 40);
         btnBackToMain.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
         btnBackToMain.addActionListener(event -> {
-        	this.setVisible(false);
-        	new MainWindow();
+            this.setVisible(false);
+            new MainWindow();
         });
         add(btnBackToMain);
 

@@ -2,9 +2,7 @@ package test.com.houarizegai.TicTacToc;
 
 import com.houarizegai.TicTacToc.PlayWindow;
 
-import java.awt.event.ActionEvent;
-
-public class IsExchange {
+public class IsExchange {  //测试用例1，2，3
     PlayWindow testObj = null;
     public IsExchange() {
     }
