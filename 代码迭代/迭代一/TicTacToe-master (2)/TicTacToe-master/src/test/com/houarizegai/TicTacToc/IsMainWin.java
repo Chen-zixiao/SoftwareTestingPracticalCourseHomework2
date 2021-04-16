@@ -5,7 +5,6 @@ import com.houarizegai.TicTacToc.PlayWindow;
 
 public class IsMainWin {  //测试用例4
     MainWindow testObj = null;
-    PlayWindow testObj2 = null;
     public IsMainWin() {
     }
 

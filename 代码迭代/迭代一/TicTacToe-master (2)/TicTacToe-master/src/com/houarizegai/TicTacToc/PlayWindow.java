@@ -13,12 +13,12 @@ import javax.swing.JOptionPane;
 
 public class PlayWindow extends JFrame implements ActionListener{
 	private JLabel 	TableOfScore; // 分数板部件
-	private int xScore = 0; // X棋的分数
-    private int oScore = 0; // O棋的分数
-    private JButton buttonsXO[]; // 输入X或O的按钮
-    private JButton btnReset; // 清空棋盘并重置分数按钮
-    private JButton btnClear; // 只清空棋盘的按钮
-    private JButton btnBackToMain; // 返回主界面的按钮
+	public int xScore = 0; // X棋的分数
+    public int oScore = 0; // O棋的分数
+    public JButton buttonsXO[]; // 输入X或O的按钮
+    public JButton btnReset; // 清空棋盘并重置分数按钮
+    public JButton btnClear; // 只清空棋盘的按钮
+    public JButton btnBackToMain; // 返回主界面的按钮
     private final static int BUTTON_XO_WIDTH = 80;
     private final static int BUTTON_XO_HEIGHT = 80;
 	private final static int POSITION_XO_H[] =
@@ -37,6 +37,8 @@ public class PlayWindow extends JFrame implements ActionListener{
     public boolean preplayer=player1;//平局则用此记录上一轮先开始玩家
     public boolean nextplay=true;//为了记录是否进入下一轮，false为进入下一轮
     public int whowin=1;//记录谁获胜，1为己方，2为对方，3为平局
+    public int[] haveChess=new int[9];//记录棋盘上是否有棋，0无1有
+    public String mes="出错";
 
     public PlayWindow(int CHOIX_LEVEL) {  // CHOIX_LEVEL = 0:双人对战
     	
@@ -51,7 +53,7 @@ public class PlayWindow extends JFrame implements ActionListener{
         TableOfScore.setFont(new Font("Comic Sans MS", Font.PLAIN, 16)); // 设置Font
         this.add(TableOfScore);
 
-        buttonsXO = new JButton[9];        
+        buttonsXO = new JButton[9];
 
         for (i = 0; i < buttonsXO.length; i++) { //设置棋盘
             //棋盘的排列方式与按钮对应为123
@@ -143,7 +145,7 @@ public class PlayWindow extends JFrame implements ActionListener{
                                             + "<tr><td><b>"+ p2 + "</b></td><td>" + oFormat + "</td></tr></html>");
     }
     
-	private boolean getResult(boolean Player1Win) { // 平局或胜利时弹出窗口
+	public boolean getResult(boolean Player1Win) { // 平局或胜利时弹出窗口
         if (((buttonsXO[0].getText().equals(buttonsXO[3].getText())) && (buttonsXO[0].getText().equals(buttonsXO[6].getText())) && (!buttonsXO[0].getText().equals("")))
                 || ((buttonsXO[1].getText().equals(buttonsXO[4].getText())) && (buttonsXO[1].getText().equals(buttonsXO[7].getText())) && (!buttonsXO[1].getText().equals("")))
                 || ((buttonsXO[2].getText().equals(buttonsXO[5].getText())) && (buttonsXO[2].getText().equals(buttonsXO[8].getText())) && (!buttonsXO[2].getText().equals("")))
@@ -157,6 +159,7 @@ public class PlayWindow extends JFrame implements ActionListener{
                 xScore++;
                 if (CHOIX_LEVEL == CHOIX_FRIEND) {
                     JOptionPane.showMessageDialog(null, "<html>" + setColorOnly("玩家 1 (X) ", "green") + setColorOnly("获胜 !", "green") + "</html>");
+                    mes="玩家1获胜";
                     whowin=1;
                 }
                 else
@@ -165,6 +168,7 @@ public class PlayWindow extends JFrame implements ActionListener{
                 oScore++;
                 if (CHOIX_LEVEL == CHOIX_FRIEND) {
                     JOptionPane.showMessageDialog(null, "<html>" + setColorOnly("玩家 2 (O) ", "blue") + setColorOnly("获胜 !", "green") + "</html>");
+                    mes="玩家2获胜";
                     whowin=2;
                 }
                 else
@@ -184,6 +188,7 @@ public class PlayWindow extends JFrame implements ActionListener{
 	                && !buttonsXO[7].getText().equals("")
 	                && !buttonsXO[8].getText().equals("")) {
                 JOptionPane.showMessageDialog(null, " Draw !");
+                mes="平局";
                 clear();
                 whowin=3;
                 preplayer=player1;
@@ -196,6 +201,7 @@ public class PlayWindow extends JFrame implements ActionListener{
     private void clear() { // 清空棋盘并初始化
         for (i = 0; i < 9; i++) {
             buttonsXO[i].setText(""); // 移除棋子
+            haveChess[i]=0;
         }
     }
 
@@ -228,6 +234,7 @@ public class PlayWindow extends JFrame implements ActionListener{
                 return res;
             }
     	}
+    	haveChess[index]=1;
     	return true;
     }
 
