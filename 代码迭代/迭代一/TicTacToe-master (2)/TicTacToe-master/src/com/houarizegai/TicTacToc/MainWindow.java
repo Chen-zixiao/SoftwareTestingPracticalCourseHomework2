@@ -18,11 +18,7 @@ public class MainWindow extends JFrame implements ActionListener{
     public boolean isOn=false;//判断是否进入游戏界面，true为进入了
     public boolean isOpen=false; //记录游戏界面已打开
     //主界面
-    public MainWindow() {
 
-    /**
-     *
-     */
     MainWindow() {
 
         labelSelect = new JLabel(PlayWindow.setColor("请选择游戏模式 :", "blue")); // 创建新的JLabel实例并设置颜色
