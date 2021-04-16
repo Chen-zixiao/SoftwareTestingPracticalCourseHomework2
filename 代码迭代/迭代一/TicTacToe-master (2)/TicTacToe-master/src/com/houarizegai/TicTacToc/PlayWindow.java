@@ -148,7 +148,7 @@ public class PlayWindow extends JFrame implements ActionListener{
                                             + "<tr><td><b>"+ p2 + "</b></td><td>" + oFormat + "</td></tr></html>");
     }
     
-	private boolean getResult(boolean Player1Win) { // 平局或胜利时弹出窗口
+	public boolean getResult(boolean Player1Win) { // 平局或胜利时弹出窗口
         if (((buttonsXO[0].getText().equals(buttonsXO[3].getText())) && (buttonsXO[0].getText().equals(buttonsXO[6].getText())) && (!buttonsXO[0].getText().equals("")))
                 || ((buttonsXO[1].getText().equals(buttonsXO[4].getText())) && (buttonsXO[1].getText().equals(buttonsXO[7].getText())) && (!buttonsXO[1].getText().equals("")))
                 || ((buttonsXO[2].getText().equals(buttonsXO[5].getText())) && (buttonsXO[2].getText().equals(buttonsXO[8].getText())) && (!buttonsXO[2].getText().equals("")))

@@ -19,7 +19,7 @@ public class MainWindow extends JFrame implements ActionListener{
     public boolean isOpen=false; //记录游戏界面已打开
     //主界面
 
-    MainWindow() {
+    public MainWindow() {
 
         labelSelect = new JLabel(PlayWindow.setColor("请选择游戏模式 :", "blue")); // 创建新的JLabel实例并设置颜色
         labelSelect.setBounds(20, 40, 315, 50); // 设置大小和位置
