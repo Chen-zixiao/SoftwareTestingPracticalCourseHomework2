@@ -47,18 +47,23 @@ public class AboutWindow extends JDialog implements MouseListener {
         this.setVisible(true);
     }
 
+//    @Override
+//    public void mouseClicked(MouseEvent e) {
+//        for(int i = 0; i < labelImg.length; i++)
+//        if (e.getSource().equals(labelImg[i]))
+//            try {//跳转到社交媒体
+//                Desktop.getDesktop().browse(new URI("https://www." + IMAGE_NAME[i] + ".com/HouariZegai"));
+//        } catch (Exception ex) {
+//
+//        }
+//    }
     @Override
     public void mouseClicked(MouseEvent e) {
-        for(int i = 0; i < labelImg.length; i++) {
-            if (e.getSource().equals(labelImg[i])) {
-                try {//跳转到社交媒体
-                    Desktop.getDesktop().browse(new URI("https://www." + IMAGE_NAME[i] + ".com/HouariZegai"));
-                } catch (Exception ex) {
-
-                }
-            }
-        }
+        for(int i = 0; i < labelImg.length; i++)
+            if (e.getSource().equals(labelImg[i]))
+                openURI(i);
     }
+
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -80,6 +85,21 @@ public class AboutWindow extends JDialog implements MouseListener {
         
     }
 
+
+    public boolean openURI(int i) {
+        if(i<labelImg.length){
+            try {//跳转到社交媒体
+                Desktop.getDesktop().browse(new URI("https://www." + IMAGE_NAME[i] + ".com/HouariZegai"));
+                return true;
+            } catch (Exception ex) {
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+
+    }
 
     public static void main(String[] args) {
         new AboutWindow().setVisible(true);
