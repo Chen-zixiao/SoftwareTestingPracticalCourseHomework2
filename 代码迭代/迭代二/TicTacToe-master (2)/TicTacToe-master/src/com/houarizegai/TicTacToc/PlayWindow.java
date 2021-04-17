@@ -72,9 +72,6 @@ public class PlayWindow extends JFrame implements ActionListener {
     private boolean printRand = true;
 
 
-    /** 是否是玩家的轮次 */
-    private static boolean playerTurn = true;
-
     /* 人机中等或者困难模式使用的变量*/
     private int arrayRows[] = new int[8]; // 数组里1代表X，-1代表O
     private boolean mCenterFirst = false;
@@ -175,7 +172,6 @@ public class PlayWindow extends JFrame implements ActionListener {
                     printXOForEasy(i);
                 }
             }
-            playerTurn = false;
         } else if (CHOIX_LEVEL == CHOIX_MEDIUM) {
             for (i = 0; i < 9; i++) {
                 if (e.getSource() == buttonsXO[i]) {
@@ -189,7 +185,6 @@ public class PlayWindow extends JFrame implements ActionListener {
                     }
                 }
             }
-            playerTurn = false;
         } else if (CHOIX_LEVEL == CHOIX_HARD) {
             for (i = 0; i < 9; i++) {
                 if (e.getSource() == buttonsXO[i]) {
@@ -203,7 +198,6 @@ public class PlayWindow extends JFrame implements ActionListener {
                     }
                 }
             }
-            playerTurn = false;
         }
 
     }
@@ -367,7 +361,6 @@ public class PlayWindow extends JFrame implements ActionListener {
                 }
             }
         }
-        playerTurn = true;
     }
 
     /* 只在人机中等或者困难模式使用的函数 */
@@ -634,7 +627,6 @@ public class PlayWindow extends JFrame implements ActionListener {
         fillArray(index, -1);
         mCounter++;
         mCorner = false;
-        playerTurn = true;
     }
 
     private int adverserWantWin() {//判断人机可以赢的落点
@@ -737,9 +729,5 @@ public class PlayWindow extends JFrame implements ActionListener {
 
     public void setoScore(int oScore) {
         this.oScore = oScore;
-    }
-
-    public static boolean isPlayerTurn() {
-        return playerTurn;
     }
 }
