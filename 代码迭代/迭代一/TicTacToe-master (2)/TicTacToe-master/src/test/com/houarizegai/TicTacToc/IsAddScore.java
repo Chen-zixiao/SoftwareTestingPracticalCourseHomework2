@@ -39,12 +39,16 @@ public class IsAddScore {//判断是否在连赢5盘后分加上了
     public void PlayChess() {
         Add("O","O","O","","","","","","");
         this.testObj.getResult(false);
+        Assert.assertTrue(this.testObj.oScore-this.testObj.xScore==1);
         Add("O","","","O","","","O","","");
         this.testObj.getResult(false);
+        Assert.assertTrue(this.testObj.oScore-this.testObj.xScore==2);
         Add("O","","","","O","","","","O");
         this.testObj.getResult(false);
+        Assert.assertTrue(this.testObj.oScore-this.testObj.xScore==3);
         Add("","O","","","O","","","O","");
         this.testObj.getResult(false);
+        Assert.assertTrue(this.testObj.oScore-this.testObj.xScore==4);
         Add("","","","","","","O","O","O");
         this.testObj.getResult(false);
         Assert.assertTrue(this.testObj.oScore-this.testObj.xScore==5);

@@ -40,7 +40,7 @@ public class IsExchange {  //测试用例1，2，3
             if (this.testObj.nextplay == false && this.testObj.whowin == 1)//进入下一局且玩家一赢
             {
                 System.out.println("111");
-                actual = this.testObj.player1;
+                actual = PlayWindow.player1;
                 expected = false;
                 testResult = this.verify(expected, actual);
                 String output = this.recordTestExchange(testResult, expected, actual);
@@ -59,7 +59,7 @@ public class IsExchange {  //测试用例1，2，3
             Thread.sleep(100);
             if (this.testObj.nextplay == false && this.testObj.whowin == 2)//进入下一局且玩家2赢
             {
-                actual = this.testObj.player1;
+                actual = PlayWindow.player1;
                 expected = true;
                 testResult = this.verify(expected, actual);
                 String output = this.recordTestExchange(testResult, expected, actual);
@@ -78,7 +78,7 @@ public class IsExchange {  //测试用例1，2，3
             Thread.sleep(100);
             if (this.testObj.nextplay == false && this.testObj.whowin == 3)//进入下一局且平局
             {
-                actual = this.testObj.player1;
+                actual = PlayWindow.player1;
                 expected = false;
                 testResult = this.verify(expected, actual);
                 String output = this.recordTestExchange(testResult, expected, actual);

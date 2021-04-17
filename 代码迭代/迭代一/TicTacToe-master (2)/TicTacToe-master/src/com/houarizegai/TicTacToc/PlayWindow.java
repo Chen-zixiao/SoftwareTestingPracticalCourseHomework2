@@ -15,13 +15,27 @@ import javax.swing.JOptionPane;
  * @author zixiao chen
  */
 public class PlayWindow extends JFrame implements ActionListener{
-	private JLabel 	TableOfScore; // 分数板部件
-	public int xScore = 0; // X棋的分数
-    public int oScore = 0; // O棋的分数
-    public JButton buttonsXO[]; // 输入X或O的按钮
-    public JButton btnReset; // 清空棋盘并重置分数按钮
-    public JButton btnClear; // 只清空棋盘的按钮
-    public JButton btnBackToMain; // 返回主界面的按钮
+
+    /** 分数板部件 */
+    private JLabel 	TableOfScore;
+
+    /** X棋的分数 */
+    public int xScore = 0;
+
+    /** O棋的分数 */
+    public int oScore = 0;
+
+    /** 输入X或O的按钮 */
+    public JButton buttonsXO[];
+
+    /** 清空棋盘并重置分数按钮 */
+    public JButton btnReset;
+
+    /** 只清空棋盘的按钮 */
+    public JButton btnClear;
+
+    /**  返回主界面的按钮 */
+    public JButton btnBackToMain;
     private final static int BUTTON_XO_WIDTH = 80;
     private final static int BUTTON_XO_HEIGHT = 80;
 	private final static int POSITION_XO_H[] =
