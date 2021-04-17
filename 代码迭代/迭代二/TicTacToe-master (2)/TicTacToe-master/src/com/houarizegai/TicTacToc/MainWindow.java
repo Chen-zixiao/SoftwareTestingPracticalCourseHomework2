@@ -5,78 +5,81 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * @author zixiao chen
- */
+
 public class MainWindow extends JFrame implements ActionListener{
     
     private final JLabel labelSelect;
+    private JLabel labelChoix;//选择难度的JLabel
+    private final JButton btnWithFriend; // 双人对战按钮
+    private final JButton btnWithPc; // 人机对战按钮
+    private JRadioButton choixWithPc[] = new JRadioButton[3]; // 选择人机模式难度的按钮
+    private boolean showHidePcPlay = false; // 是否展示难度界面的判断变量
+    private final Font FontForLabel = new Font("Comic Sans MS", Font.PLAIN, 16); // 根据Font的数值创建不同的实例
+    private static int i = 0; // 循环使用变量
+    //主界面
+    MainWindow() {
 
-    /** 双人对战按钮 */
-    private final JButton btnWithFriend;
-
-    /** 是否展示难度界面的判断变量 */
-    private boolean showHidePcPlay = false;
-
-    /** 根据Font的数值创建不同的实例 */
-    private final Font FontForLabel = new Font("Comic Sans MS", Font.PLAIN, 16);
-
-    /** 循环使用变量 */
-    private static int i = 0;
-
-    /** 判断是否进入游戏界面，true为进入 */
-    public boolean isOn=false;
-
-    /** 记录游戏界面已打开 */
-    public boolean isOpen=false;
-
-    /** 主界面初始化 */
-    public MainWindow() {
-
-        // 创建新的JLabel实例并设置颜色
-        labelSelect = new JLabel(PlayWindow.setColor("请选择游戏模式 :", "blue"));
-        // 设置大小和位置
-        labelSelect.setBounds(20, 40, 315, 50);
-        // 改变font值
-        labelSelect.setFont(new Font("Comic Sans Ms", Font.PLAIN, 15));
-        // 将JLabel添加到主界面
-        this.add(labelSelect);
-
-        /* 设置双人对战模式跳转 */
-        //双人对战模式的设置
-        btnWithFriend = new JButton("play with friends");
+        labelSelect = new JLabel(PlayWindow.setColor("请选择游戏模式 :", "blue")); // 创建新的JLabel实例并设置颜色
+        labelSelect.setBounds(20, 40, 315, 50); // 设置大小和位置
+        labelSelect.setFont(new Font("Comic Sans Ms", Font.PLAIN, 15)); // 改变font值
+        this.add(labelSelect); // 将JLabel添加到主界面
+        //设置双人对战模式跳转
+        btnWithFriend = new JButton("play with friends");//双人对战模式的设置
         btnWithFriend.setBounds(20, 100, 250, 50);
         btnWithFriend.setFont(FontForLabel);
         btnWithFriend.addActionListener(event -> {
-            // 创建双人对战模式的窗口
-        	new PlayWindow(0);
-            // 隐藏主界面
-            this.setVisible(false);
-            isOpen=true;
+        	new PlayWindow(0); // 创建双人对战模式的窗口
+            this.setVisible(false); // 隐藏主界面
         });
         this.add(btnWithFriend);
-        btnWithFriend.addActionListener(this);
-        // 主界面标题
-        setTitle("井字棋");
+        
+        btnWithPc = new JButton("play with pc");//人机对战模式的设置
+        btnWithPc.setBounds(20, 160, 250, 50);
+        btnWithPc.setFont(FontForLabel);
+        btnWithPc.addActionListener(event -> {
+        	showHidePcPlay = (showHidePcPlay)? false : true;//根据变量判断是要弹出或者隐藏难度选择窗口，并重新改变主界面大小
+        	labelChoix.setVisible(showHidePcPlay);
+        	for(i = 0; i < 3; i++)
+        		choixWithPc[i].setVisible(showHidePcPlay);
+        	
+            this.setSize(310, (showHidePcPlay)?450:270);
+        });
+        this.add(btnWithPc);
+        
+        labelChoix = new JLabel(PlayWindow.setColor("请选择难度 :", "green"));//难度选择的界面的设置
+        labelChoix.setBounds(30, 220, 250, 50);
+        labelChoix.setVisible(false);
+        this.add(labelChoix);
+        
+        choixWithPc[0] = new JRadioButton("简单");
+        choixWithPc[1] = new JRadioButton("中等");
+        choixWithPc[2] = new JRadioButton("困难");
+        
+        for(int i = 0; i < 3; i++) {
+        	choixWithPc[i].setBounds(40, 260 + 30 * i, 150, 30);
+        	choixWithPc[i].setVisible(false);
+        	choixWithPc[i].addActionListener(this);
+	        this.add(choixWithPc[i]);
+        }
+
+        setTitle("井字棋"); // 主界面标题
         setBounds(400, 170, 310, 270);
-        //不需要layout因为通过setBounds（）函数控制组件
-        setLayout(null);
-        // 设置退出按钮
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // 在屏幕上展示窗口
-        setVisible(true);
+        setLayout(null); //不需要layout因为通过setBounds（）函数控制组件
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 设置退出按钮
+        setVisible(true); // 在屏幕上展示窗口
         setIconImage(new ImageIcon(getClass().getResource("/com/houarizegai/TicTacToc/images/logo.png")).getImage());
     }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        isOn=true;
-    }
-
+    
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		for(int i = 0; i < 3; i++)
+			if(e.getSource() == choixWithPc[i]) {
+			    	new PlayWindow(i+1);
+			        this.setVisible(false);
+			}
+	}
+	
 	public static void main(String[] args) {
-        // 开始游戏
-        new MainWindow();
+        new MainWindow(); // 开始游戏
     }
-
-   
 }
