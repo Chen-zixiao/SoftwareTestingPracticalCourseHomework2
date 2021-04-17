@@ -31,6 +31,8 @@ public class PlayWindow extends JFrame implements ActionListener {
     /** 只清空棋盘的按钮 */
     public JButton btnClear;
 
+    /** */
+
     /**  返回主界面的按钮 */
     public JButton btnBackToMain;
     private final static int BUTTON_XO_WIDTH = 80;
@@ -54,11 +56,24 @@ public class PlayWindow extends JFrame implements ActionListener {
     private final int CHOIX_HARD = 3;
 
     /* 双人模式使用的变量 */
-    private static boolean player1 = true; // 判断当前玩家的变量
+    public static boolean player1 = true;
+    public String mes="出错";
+    /** 平局则用此记录上一轮先开始玩家 */
+    public boolean preplayer=player1;
+    /** 为了记录是否进入下一轮，false为进入下一轮 */
+    public boolean nextplay=true;
+    /** 记录谁获胜，1为己方，2为对方，3为平局 */
+    public int whowin=1;
+    /** 记录棋盘上是否有棋，0无1有 */
+    public int[] haveChess=new int[9];
 
     /* 人机简单模式使用的变量 */
     private static Random rand = new Random();
-    private boolean printRand = true; // 判断是否可以落子
+    private boolean printRand = true;
+
+
+    /** 是否是玩家的轮次 */
+    private static boolean playerTurn = true;
 
     /* 人机中等或者困难模式使用的变量*/
     private int arrayRows[] = new int[8]; // 数组里1代表X，-1代表O
@@ -147,11 +162,11 @@ public class PlayWindow extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //各模式的下棋按钮点击触发的逻辑
+        // 各模式的下棋按钮点击触发的逻辑
         if (CHOIX_LEVEL == CHOIX_FRIEND) {
             for (i = 0; i < 9; i++) {
                 if (e.getSource().equals(buttonsXO[i])) {
-                    printXOForFriend(i);
+                    nextplay = printXOForFriend(i);
                 }
             }
         } else if (CHOIX_LEVEL == CHOIX_EASY) {
@@ -160,6 +175,7 @@ public class PlayWindow extends JFrame implements ActionListener {
                     printXOForEasy(i);
                 }
             }
+            playerTurn = false;
         } else if (CHOIX_LEVEL == CHOIX_MEDIUM) {
             for (i = 0; i < 9; i++) {
                 if (e.getSource() == buttonsXO[i]) {
@@ -173,6 +189,7 @@ public class PlayWindow extends JFrame implements ActionListener {
                     }
                 }
             }
+            playerTurn = false;
         } else if (CHOIX_LEVEL == CHOIX_HARD) {
             for (i = 0; i < 9; i++) {
                 if (e.getSource() == buttonsXO[i]) {
@@ -186,6 +203,7 @@ public class PlayWindow extends JFrame implements ActionListener {
                     }
                 }
             }
+            playerTurn = false;
         }
 
     }
@@ -216,7 +234,7 @@ public class PlayWindow extends JFrame implements ActionListener {
                 + "<tr><td><b>" + p2 + "</b></td><td>" + oFormat + "</td></tr></html>");
     }
 
-    private boolean getResult(boolean Player1Win) { // 平局或胜利时弹出窗口
+    public boolean getResult(boolean Player1Win) { // 平局或胜利时弹出窗口
         if (((buttonsXO[0].getText().equals(buttonsXO[3].getText())) && (buttonsXO[0].getText().equals(buttonsXO[6].getText())) && (!buttonsXO[0].getText().equals("")))
                 || ((buttonsXO[1].getText().equals(buttonsXO[4].getText())) && (buttonsXO[1].getText().equals(buttonsXO[7].getText())) && (!buttonsXO[1].getText().equals("")))
                 || ((buttonsXO[2].getText().equals(buttonsXO[5].getText())) && (buttonsXO[2].getText().equals(buttonsXO[8].getText())) && (!buttonsXO[2].getText().equals("")))
@@ -230,6 +248,8 @@ public class PlayWindow extends JFrame implements ActionListener {
                 xScore++;
                 if (CHOIX_LEVEL == CHOIX_FRIEND) {
                     JOptionPane.showMessageDialog(null, "<html>" + setColorOnly("玩家 1 (X) ", "green") + setColorOnly("获胜 !", "green") + "</html>");
+                    mes="玩家1获胜";
+                    whowin=1;
                 } else {
                     JOptionPane.showMessageDialog(null, setColor("你获胜了  ^_^ !", "green"));
                 }
@@ -237,6 +257,8 @@ public class PlayWindow extends JFrame implements ActionListener {
                 oScore++;
                 if (CHOIX_LEVEL == CHOIX_FRIEND) {
                     JOptionPane.showMessageDialog(null, "<html>" + setColorOnly("玩家 2 (O) ", "blue") + setColorOnly("获胜 !", "green") + "</html>");
+                    mes="玩家2获胜";
+                    whowin=2;
                 } else {
                     JOptionPane.showMessageDialog(null, "<html>" + setColorOnly("你失败了 : (", "red") + "<br>人机 " + setColor("获胜 !", "green") + "</html>");
                 }
@@ -255,7 +277,10 @@ public class PlayWindow extends JFrame implements ActionListener {
                     && !buttonsXO[7].getText().equals("")
                     && !buttonsXO[8].getText().equals("")) {
                 JOptionPane.showMessageDialog(null, " Draw !");
+                mes="平局";
                 clear();
+                whowin=3;
+                preplayer=player1;
                 return false;
             } else {
                 printRand = true;
@@ -264,9 +289,10 @@ public class PlayWindow extends JFrame implements ActionListener {
         return true;
     }
 
-    private void clear() { // 清空棋盘并初始化
+    public void clear() { // 清空棋盘并初始化
         for (i = 0; i < 9; i++) {
             buttonsXO[i].setText(""); // 移除棋子
+            haveChess[i]=0;
         }
         if (CHOIX_LEVEL == CHOIX_EASY) { //人机简单模式
             printRand = false;
@@ -287,7 +313,7 @@ public class PlayWindow extends JFrame implements ActionListener {
         }
     }
 
-    private void resetScore() { // 调用clear（）并重置分数
+    public void resetScore() { // 调用clear（）并重置分数
         clear();
         printScore(xScore = 0, oScore = 0);
     }
@@ -301,18 +327,22 @@ public class PlayWindow extends JFrame implements ActionListener {
     }
 
     /* 只在双人对战模式使用的函数 */
-    private void printXOForFriend(int index) { // 打印棋子并检查是否满足结束条件 )
+    private boolean printXOForFriend(int index) { // 打印棋子并检查是否满足结束条件 )
+        boolean res;
         if (buttonsXO[index].getText().equals("")) {
             if (player1) {
                 buttonsXO[index].setText(setColor("X", "green"));
-                getResult(player1);
+                res=getResult(player1);
                 player1 = false;
+                return res;
             } else {
                 buttonsXO[index].setText(setColor("O", "blue"));
-                getResult(player1);
+                res=getResult(player1);
                 player1 = true;
+                return res;
             }
         }
+        return true;
     }
 
     /* 只在人机简单模式使用的函数 */
@@ -337,6 +367,7 @@ public class PlayWindow extends JFrame implements ActionListener {
                 }
             }
         }
+        playerTurn = true;
     }
 
     /* 只在人机中等或者困难模式使用的函数 */
@@ -603,6 +634,7 @@ public class PlayWindow extends JFrame implements ActionListener {
         fillArray(index, -1);
         mCounter++;
         mCorner = false;
+        playerTurn = true;
     }
 
     private int adverserWantWin() {//判断人机可以赢的落点
@@ -705,5 +737,9 @@ public class PlayWindow extends JFrame implements ActionListener {
 
     public void setoScore(int oScore) {
         this.oScore = oScore;
+    }
+
+    public static boolean isPlayerTurn() {
+        return playerTurn;
     }
 }

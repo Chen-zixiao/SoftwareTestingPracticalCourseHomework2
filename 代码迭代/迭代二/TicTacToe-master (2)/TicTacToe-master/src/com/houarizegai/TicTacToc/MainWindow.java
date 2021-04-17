@@ -33,6 +33,12 @@ public class MainWindow extends JFrame implements ActionListener{
     /** 循环使用变量 */
     private static int i = 0; // 循环使用变量
 
+    /** 判断是否进入游戏界面，true为进入 */
+    public boolean isOn=false;
+
+    /** 记录游戏界面已打开 */
+    public boolean isOpen=false;
+
     /** 主界面初始化 */
     public MainWindow() {
 
@@ -56,6 +62,7 @@ public class MainWindow extends JFrame implements ActionListener{
         	new PlayWindow(0);
             // 隐藏主界面
             this.setVisible(false);
+            isOpen=true;
         });
         this.add(btnWithFriend);
 
@@ -112,6 +119,7 @@ public class MainWindow extends JFrame implements ActionListener{
                 this.setVisible(false);
             }
         }
+        isOn=true;
 	}
 	
 	public static void main(String[] args) {
