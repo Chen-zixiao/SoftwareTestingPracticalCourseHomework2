@@ -45,15 +45,15 @@ public class PlayWindow extends JFrame implements ActionListener {
     private static int i = 0;
 
     /** 游戏模式 */
-    private int CHOIX_LEVEL;
+    public int CHOIX_LEVEL;
     /** 双人对战模式 */
-    private final int CHOIX_FRIEND = 0;
+    public final int CHOIX_FRIEND = 0;
     /** 简单人机模式 */
-    private final int CHOIX_EASY = 1;
+    public final int CHOIX_EASY = 1;
     /** 中等人机模式 */
-    private final int CHOIX_MEDIUM = 2;
+    public final int CHOIX_MEDIUM = 2;
     /** 困难人机模式 */
-    private final int CHOIX_HARD = 3;
+    public final int CHOIX_HARD = 3;
 
     /* 双人模式使用的变量 */
     public static boolean player1 = true;
@@ -156,6 +156,7 @@ public class PlayWindow extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
