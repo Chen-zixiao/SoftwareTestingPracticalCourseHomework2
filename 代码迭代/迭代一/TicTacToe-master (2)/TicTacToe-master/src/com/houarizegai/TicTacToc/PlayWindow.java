@@ -61,8 +61,9 @@ public class PlayWindow extends JFrame implements ActionListener{
     	
     	this.CHOIX_LEVEL = CHOIX_LEVEL;
     	
-    	if (this.CHOIX_LEVEL == CHOIX_FRIEND)
-    		this.setTitle("双人对战");
+    	if (this.CHOIX_LEVEL == CHOIX_FRIEND) {
+            this.setTitle("双人对战");
+        }
     	
     	TableOfScore = new JLabel("");//初始化分数板
         printScore(xScore, oScore); // 打印分数
@@ -130,8 +131,9 @@ public class PlayWindow extends JFrame implements ActionListener{
     	//各模式的下棋按钮点击触发的逻辑
     	if (CHOIX_LEVEL == CHOIX_FRIEND) {
     		for(i = 0; i < 9; i++){     //九个按键都循环一遍来看哪个被选中了
-        		if (e.getSource().equals(buttonsXO[i]))
-        			nextplay=printXOForFriend(i);
+        		if (e.getSource().equals(buttonsXO[i])) {
+                    nextplay = printXOForFriend(i);
+                }
     	    }
     	}
     }
@@ -179,8 +181,9 @@ public class PlayWindow extends JFrame implements ActionListener{
                     mes="玩家1获胜";
                     whowin=1;
                 }
-                else
-                	JOptionPane.showMessageDialog(null, setColor("你获胜了  ^_^ !" , "green"));
+                else {
+                    JOptionPane.showMessageDialog(null, setColor("你获胜了  ^_^ !", "green"));
+                }
             } else {
                 oScore++;
                 if (CHOIX_LEVEL == CHOIX_FRIEND) {
@@ -188,8 +191,9 @@ public class PlayWindow extends JFrame implements ActionListener{
                     mes="玩家2获胜";
                     whowin=2;
                 }
-                else
-                	JOptionPane.showMessageDialog(null, "<html>" + setColorOnly("你失败了 : (", "red") + "<br>人机 " + setColor("获胜 !", "green") + "</html>");
+                else {
+                    JOptionPane.showMessageDialog(null, "<html>" + setColorOnly("你失败了 : (", "red") + "<br>人机 " + setColor("获胜 !", "green") + "</html>");
+                }
             }
             printScore(xScore, oScore);
             clear();
@@ -215,14 +219,14 @@ public class PlayWindow extends JFrame implements ActionListener{
         return true;
     }
 	
-    private void clear() { // 清空棋盘并初始化
+    public void clear() { // 清空棋盘并初始化
         for (i = 0; i < 9; i++) {
             buttonsXO[i].setText(""); // 移除棋子
             haveChess[i]=0;
         }
     }
 
-    private void resetScore() { // 调用clear（）并重置分数
+    public void resetScore() { // 调用clear（）并重置分数
         clear();
         printScore(xScore = 0, oScore = 0);
     }
@@ -252,6 +256,24 @@ public class PlayWindow extends JFrame implements ActionListener{
             }
     	}
     	return true;
+    }
+
+    /* getters and setters */
+
+    public int getxScore() {
+        return xScore;
+    }
+
+    public void setxScore(int xScore) {
+        this.xScore = xScore;
+    }
+
+    public int getoScore() {
+        return oScore;
+    }
+
+    public void setoScore(int oScore) {
+        this.oScore = oScore;
     }
 
 }
