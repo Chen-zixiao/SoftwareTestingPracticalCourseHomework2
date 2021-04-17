@@ -13,26 +13,44 @@ import javax.swing.JOptionPane;
 
 public class PlayWindow extends JFrame implements ActionListener {
 
-    private JLabel TableOfScore; // 分数板部件
-    private int xScore = 0; // X棋的分数
-    private int oScore = 0; // O棋的分数
-    private JButton buttonsXO[]; // 输入X或O的按钮
-    private JButton btnReset; // 清空棋盘并重置分数按钮
-    private JButton btnClear; // 只清空棋盘的按钮
-    private JButton btnBackToMain; // 返回主界面的按钮
+    /** 分数板部件 */
+    private JLabel 	TableOfScore;
+
+    /** X棋的分数 */
+    public int xScore = 0;
+
+    /** O棋的分数 */
+    public int oScore = 0;
+
+    /** 输入X或O的按钮 */
+    public JButton buttonsXO[];
+
+    /** 清空棋盘并重置分数按钮 */
+    public JButton btnReset;
+
+    /** 只清空棋盘的按钮 */
+    public JButton btnClear;
+
+    /**  返回主界面的按钮 */
+    public JButton btnBackToMain;
     private final static int BUTTON_XO_WIDTH = 80;
     private final static int BUTTON_XO_HEIGHT = 80;
     private final static int POSITION_XO_H[] =
             {30, BUTTON_XO_WIDTH * 1 + 30, BUTTON_XO_WIDTH * 2 + 30, BUTTON_XO_WIDTH * 3 + 30}; // 按钮的水平方向的尺寸
     private final static int POSITION_XO_V[] =
             {120, BUTTON_XO_WIDTH * 1 + 120, BUTTON_XO_WIDTH * 2 + 120, BUTTON_XO_WIDTH * 3 + 120 + 20}; //按钮的竖直方向的尺寸
-    private static int i = 0; // 循环部分使用变量
+    /** 循环部分使用变量 */
+    private static int i = 0;
 
+    /** 游戏模式 */
     private final int CHOIX_LEVEL;
-    /* 代表双人对战模式、人机模式的简单、中等、困难难度*/
+    /** 双人对战模式 */
     private final int CHOIX_FRIEND = 0;
+    /** 简单人机模式 */
     private final int CHOIX_EASY = 1;
+    /** 中等人机模式 */
     private final int CHOIX_MEDIUM = 2;
+    /** 困难人机模式 */
     private final int CHOIX_HARD = 3;
 
     /* 双人模式使用的变量 */
@@ -55,7 +73,7 @@ public class PlayWindow extends JFrame implements ActionListener {
     private boolean mCorner = false;
     private boolean mHvAfterCenter = false;
 
-    PlayWindow(int CHOIX_LEVEL) {  // CHOIX_LEVEL = 0:双人对战, 1:人机简单, 2:人机中等, 3:人机困难
+    public PlayWindow(int CHOIX_LEVEL) {  // CHOIX_LEVEL = 0:双人对战, 1:人机简单, 2:人机中等, 3:人机困难
 
         this.CHOIX_LEVEL = CHOIX_LEVEL;
 
@@ -669,5 +687,23 @@ public class PlayWindow extends JFrame implements ActionListener {
         } else {
             return 8;
         }
+    }
+
+    /* getters and setters */
+
+    public int getxScore() {
+        return xScore;
+    }
+
+    public void setxScore(int xScore) {
+        this.xScore = xScore;
+    }
+
+    public int getoScore() {
+        return oScore;
+    }
+
+    public void setoScore(int oScore) {
+        this.oScore = oScore;
     }
 }

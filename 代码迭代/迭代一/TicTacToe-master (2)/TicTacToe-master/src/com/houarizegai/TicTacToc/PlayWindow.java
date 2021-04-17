@@ -42,7 +42,8 @@ public class PlayWindow extends JFrame implements ActionListener{
             {30, BUTTON_XO_WIDTH * 1 + 30, BUTTON_XO_WIDTH * 2 + 30, BUTTON_XO_WIDTH * 3 + 30}; // 按钮的水平方向的尺寸
 	private final static int POSITION_XO_V[] =
             {120, BUTTON_XO_WIDTH * 1 + 120, BUTTON_XO_WIDTH * 2 + 120, BUTTON_XO_WIDTH * 3 + 120 + 20}; //按钮的竖直方向的尺寸
-	private static int i = 0; // 循环部分使用变量
+	/** 循环部分使用变量 */
+    private static int i = 0;
 
 	private final int CHOIX_LEVEL;
     /* 代表双人对战模式*/
