@@ -11,15 +11,16 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.Collection;
 
+/**
+ * 该类测试玩家对战中的Clear功能
+ */
 @RunWith(Parameterized.class)
-public class ClearTest {
+public class PlayersClearTest {
     PlayWindow testObj;
     boolean exp;
     String[] strList;
-    int choixLevel;
 
-    public ClearTest(int CHOIX_LEVEL, String str0, String str1, String str2, String str3, String str4, String str5, String str6, String str7, String str8, boolean exp_) {
-        choixLevel = CHOIX_LEVEL;
+    public PlayersClearTest(String str0, String str1, String str2, String str3, String str4, String str5, String str6, String str7, String str8, boolean exp_) {
         strList = new String[9];
         strList[0] = str0;
         strList[1] = str1;
@@ -36,7 +37,7 @@ public class ClearTest {
     @Before
     public void setUp() throws Exception {
         // 初始化测试对象
-        this.testObj = new PlayWindow(choixLevel);
+        this.testObj = new PlayWindow(0);
         for (int i = 0; i < 9; i++) {
             this.testObj.buttonsXO[i].setText(strList[i]);
         }
@@ -51,11 +52,11 @@ public class ClearTest {
     public static Collection testDataset() {
         return Arrays.asList(new Object[][]{
                 /* 无子时清空 */
-                {0, "", "", "", "", "", "", "", "", "", false},
+                {"", "", "", "", "", "", "", "", "", false},
                 /* 四子时清空 */
-                {0, "X", "", "O", "", "X", "", "", "O", "", false},
+                {"X", "", "O", "", "X", "", "", "O", "", false},
                 /* 全满时清空 */
-                {0, "O", "X", "X", "X", "O", "O", "O", "X", "X", false}
+                {"O", "X", "X", "X", "O", "O", "O", "X", "X", false}
         });
     }
 

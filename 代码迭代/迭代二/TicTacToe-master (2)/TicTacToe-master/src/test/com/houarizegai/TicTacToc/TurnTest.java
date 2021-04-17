@@ -59,20 +59,8 @@ public class TurnTest {
     @Parameterized.Parameters()
     public static Collection testDataset() {
         return Arrays.asList(new Object[][]{
-                /* 游戏初始化，玩家先手 */
+                /* 游戏初始化 */
                 {"", "", "", "", "", "", "", "", "", true, true, true},
-                /* 简单人机在玩家下子后能够下子 *//*
-                {1, "X", "", "", "", "", "", "", "", "", false, true, false},
-                {1, "X", "", "", "O", "", "", "X", "", "", false, false, false},
-                /* 中等人机在玩家下子后能够下子 *//*
-                {2, "X", "", "", "", "", "", "", "", "", false, true, false},
-                {2, "X", "", "", "O", "", "", "X", "", "", false, false, false},
-                /* 困难人机在玩家下子后能够下子 *//*
-                {3, "X", "", "", "", "", "", "", "", "", false, true, false},
-                {3, "X", "", "", "O", "", "", "X", "", "", false, false, false},
-                /* 玩家和人机能够轮流下子 *//*
-                {1, "", "", "", "", "", "", "", "", "", true, true, true},
-                {1, "X", "", "", "", "", "", "", "", "", false, true, false}*/
         });
     }
 

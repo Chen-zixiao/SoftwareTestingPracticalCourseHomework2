@@ -45,7 +45,7 @@ public class PlayWindow extends JFrame implements ActionListener {
     private static int i = 0;
 
     /** 游戏模式 */
-    private final int CHOIX_LEVEL;
+    private int CHOIX_LEVEL;
     /** 双人对战模式 */
     private final int CHOIX_FRIEND = 0;
     /** 简单人机模式 */
