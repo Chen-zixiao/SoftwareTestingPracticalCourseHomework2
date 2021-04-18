@@ -15,7 +15,8 @@ public class MainWindow extends JFrame implements ActionListener{
     private final JButton btnAbout; // 进入关于作者界面的按钮
     private JRadioButton choixWithPc[] = new JRadioButton[3]; // 选择人机模式难度的按钮
     private boolean showHidePcPlay = false; // 是否展示难度界面的判断变量
-    private final Font FontForLabel = new Font("Comic Sans MS", Font.PLAIN, 16); // 根据Font的数值创建不同的实例
+    //private final Font FontForLabel = new Font("Comic Sans MS", Font.PLAIN, 16); // 根据Font的数值创建不同的实例
+    private final Font FontForLabel = new Font(Font.DIALOG,  Font.BOLD, 20);
     private static int i = 0; // 循环使用变量
     //主界面
     MainWindow() {
@@ -25,7 +26,7 @@ public class MainWindow extends JFrame implements ActionListener{
         labelSelect.setFont(new Font("Comic Sans Ms", Font.PLAIN, 15)); // 改变font值
         this.add(labelSelect); // 将JLabel添加到主界面
         //设置双人对战模式跳转
-        btnWithFriend = new JButton("play with friends");//双人对战模式的设置
+        btnWithFriend = new JButton("玩家对战");//双人对战模式的设置
         btnWithFriend.setBounds(20, 100, 250, 50);
         btnWithFriend.setFont(FontForLabel);
         btnWithFriend.addActionListener(event -> {
@@ -34,7 +35,7 @@ public class MainWindow extends JFrame implements ActionListener{
         });
         this.add(btnWithFriend);
         
-        btnWithPc = new JButton("play with pc");//人机对战模式的设置
+        btnWithPc = new JButton("电脑对战");//人机对战模式的设置
         btnWithPc.setBounds(20, 160, 250, 50);
         btnWithPc.setFont(FontForLabel);
         btnWithPc.addActionListener(event -> {
@@ -47,14 +48,14 @@ public class MainWindow extends JFrame implements ActionListener{
         });
         this.add(btnWithPc);
         
-        labelChoix = new JLabel(PlayWindow.setColor("请选择难度 :", "green"));//难度选择的界面的设置
+        labelChoix = new JLabel(PlayWindow.setColor("请选择您的道路 :", "green"));//难度选择的界面的设置
         labelChoix.setBounds(30, 220, 250, 50);
         labelChoix.setVisible(false);
         this.add(labelChoix);
         
-        choixWithPc[0] = new JRadioButton("简单");
-        choixWithPc[1] = new JRadioButton("中等");
-        choixWithPc[2] = new JRadioButton("困难");
+        choixWithPc[0] = new JRadioButton("康庄大道");
+        choixWithPc[1] = new JRadioButton("丛林小路");
+        choixWithPc[2] = new JRadioButton("荆棘之路");
         
         for(int i = 0; i < 3; i++) {
         	choixWithPc[i].setBounds(40, 260 + 30 * i, 150, 30);
@@ -63,8 +64,8 @@ public class MainWindow extends JFrame implements ActionListener{
 	        this.add(choixWithPc[i]);
         }
         
-        btnAbout = new JButton("关于作者");//关于作者的界面的设置
-        btnAbout.setBounds(200, 10, 70, 25);
+        btnAbout = new JButton("关于我们");//关于作者的界面的设置
+        btnAbout.setBounds(180, 10, 100, 25);
         btnAbout.addActionListener(event -> {
             new AboutWindow();
         });

@@ -94,26 +94,26 @@ public class PlayWindow extends JFrame implements ActionListener{
             buttonsXO[i].addActionListener(this);
         }
 
-        btnReset = new JButton("Reset");//设置重置按钮
+        btnReset = new JButton("重置");//设置重置按钮
         btnReset.setBounds(POSITION_XO_H[0], POSITION_XO_V[3], BUTTON_XO_WIDTH * 3 / 2 - 10, 40);
-        btnReset.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+        btnReset.setFont(new Font(Font.DIALOG,  Font.BOLD, 16));
         btnReset.addActionListener(event -> {
         	clear();
         	resetScore();
         });
         this.add(btnReset);
 
-        btnClear = new JButton("Clear");//设置清空按钮
+        btnClear = new JButton("清空");//设置清空按钮
         btnClear.setBounds(POSITION_XO_H[0] + btnReset.getWidth() + 20, POSITION_XO_V[3], BUTTON_XO_WIDTH * 3 / 2 - 10, 40);
-        btnClear.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+        btnClear.setFont(new Font(Font.DIALOG,  Font.BOLD, 16));
         btnClear.addActionListener(event -> {
         	clear();
         });
         this.add(btnClear);
 
-        btnBackToMain = new JButton("Back To Main");//设置返回主界面的按钮
+        btnBackToMain = new JButton("返回主界面");//设置返回主界面的按钮
         btnBackToMain.setBounds(POSITION_XO_H[0], POSITION_XO_V[3] + 50, BUTTON_XO_WIDTH * 3, 40);
-        btnBackToMain.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+        btnBackToMain.setFont(new Font(Font.DIALOG,  Font.BOLD, 16));
         btnBackToMain.addActionListener(event -> {
         	this.setVisible(false);
         	new MainWindow();
@@ -180,8 +180,8 @@ public class PlayWindow extends JFrame implements ActionListener{
             oFormat = setColorOnly(String.valueOf(o), "green");
         }
         
-        String p1 = "You";
-        String p2 = "Pc";
+        String p1 = "玩家";
+        String p2 = "电脑";
         
         if (CHOIX_LEVEL == CHOIX_FRIEND) {
         	p1 = "X";

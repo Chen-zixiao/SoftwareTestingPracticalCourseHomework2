@@ -11,7 +11,7 @@ public class AboutWindow extends JDialog implements MouseListener {
     private static JLabel labelCopyRight; // 展示copyRight
     private static JLabel labelImg[]; // 展示社交媒体和博客等图片
     private static JLabel labelLogo; // 展示logo
-    private final static String IMAGE_NAME[] = {"facebook", "twitter", "youtube", "github"};
+    private final static String IMAGE_NAME[] = {"facebook", "twitter", "youtube", "github"};//显示的图片名称
     private final static int NUMBER_OF_IMAGES = IMAGE_NAME.length;
 
     public AboutWindow() {
@@ -40,22 +40,29 @@ public class AboutWindow extends JDialog implements MouseListener {
         /* 设置该窗口其他参数 */
         
         this.setBounds(400, 200, 330, 400);
-        this.setTitle("关于作者");
+        this.setTitle("关于我们");
         this.setResizable(false);
         this.setAlwaysOnTop(true);
         this.setLayout(null);
         this.setVisible(true);
     }
 
+//    @Override
+//    public void mouseClicked(MouseEvent e) {
+//        for(int i = 0; i < labelImg.length; i++)
+//        if (e.getSource().equals(labelImg[i]))
+//            try {//跳转到社交媒体
+//                Desktop.getDesktop().browse(new URI("https://www." + IMAGE_NAME[i] + ".com/HouariZegai"));
+//        } catch (Exception ex) {
+//
+//        }
+//    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         for(int i = 0; i < labelImg.length; i++)
-        if (e.getSource().equals(labelImg[i]))
-            try {//跳转到社交媒体
-                Desktop.getDesktop().browse(new URI("https://www." + IMAGE_NAME[i] + ".com/HouariZegai"));
-        } catch (Exception ex) {
-            
-        }
+            if (e.getSource().equals(labelImg[i]))
+                openURI(i);
     }
 
     @Override
@@ -77,7 +84,21 @@ public class AboutWindow extends JDialog implements MouseListener {
     public void mouseExited(MouseEvent e) {
         
     }
+    //打开链接
+    public boolean openURI(int i) {
+        if(i<labelImg.length){
+            try {//跳转到社交媒体
+                Desktop.getDesktop().browse(new URI("https://www." + IMAGE_NAME[i] + ".com/HouariZegai"));
+                return true;
+            } catch (Exception ex) {
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
 
+    }
 
     public static void main(String[] args) {
         new AboutWindow().setVisible(true);
