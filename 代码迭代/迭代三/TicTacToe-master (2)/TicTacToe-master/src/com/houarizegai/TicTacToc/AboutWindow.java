@@ -11,7 +11,7 @@ public class AboutWindow extends JDialog implements MouseListener {
     private static JLabel labelCopyRight; // 展示copyRight
     private static JLabel labelImg[]; // 展示社交媒体和博客等图片
     private static JLabel labelLogo; // 展示logo
-    private final static String IMAGE_NAME[] = {"facebook", "twitter", "youtube", "github"};//显示的图片名称
+    private final static String IMAGE_NAME[] = {"Chen-zixiao", "yikx11", "Deagen01", "NagiCarol"};//显示的图片名称
     private final static int NUMBER_OF_IMAGES = IMAGE_NAME.length;
 
     public AboutWindow() {
@@ -23,6 +23,8 @@ public class AboutWindow extends JDialog implements MouseListener {
     	/* 改变社交媒体的label */
     	
     	labelImg = new JLabel[NUMBER_OF_IMAGES]; // 初始化
+
+
         for (int i = 0; i < NUMBER_OF_IMAGES; i++) {
         	labelImg[i] = new JLabel(new ImageIcon(getClass().getResource("/com/houarizegai/TicTacToc/images/" + IMAGE_NAME[i]  + ".png")));
         	labelImg[i].setBounds(90 + 40 * i, 290, 32, 32);
@@ -33,7 +35,7 @@ public class AboutWindow extends JDialog implements MouseListener {
         
         /* 改变copyRight的label */
 
-        labelCopyRight = new JLabel("Copyright Ⓒ EasyCodeTeam, All Right Reserved 2021."); // 实例化label
+        labelCopyRight = new JLabel("Created By Husters From Softare Engineering"); // 实例化label
         labelCopyRight.setBounds(15, 330, 300, 30);
         this.add(labelCopyRight);
         
@@ -60,21 +62,11 @@ public class AboutWindow extends JDialog implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-<<<<<<< HEAD
+
         for(int i = 0; i < labelImg.length; i++)
             if (e.getSource().equals(labelImg[i]))
                 openURI(i);
-=======
-        for(int i = 0; i < labelImg.length; i++) {
-            if (e.getSource().equals(labelImg[i])) {
-                try {//跳转到社交媒体
-                    Desktop.getDesktop().browse(new URI("https://www." + IMAGE_NAME[i] + ".com/HouariZegai"));
-                } catch (Exception ex) {
 
-                }
-            }
-        }
->>>>>>> eb9b770daf6b100fd56295a1c2bf1c5eb4da09d3
     }
 
     @Override
@@ -100,7 +92,7 @@ public class AboutWindow extends JDialog implements MouseListener {
     public boolean openURI(int i) {
         if(i<labelImg.length){
             try {//跳转到社交媒体
-                Desktop.getDesktop().browse(new URI("https://www." + IMAGE_NAME[i] + ".com/HouariZegai"));
+                Desktop.getDesktop().browse(new URI("https://github.com/" + IMAGE_NAME[i] ));
                 return true;
             } catch (Exception ex) {
                 return false;
