@@ -60,9 +60,21 @@ public class AboutWindow extends JDialog implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+<<<<<<< HEAD
         for(int i = 0; i < labelImg.length; i++)
             if (e.getSource().equals(labelImg[i]))
                 openURI(i);
+=======
+        for(int i = 0; i < labelImg.length; i++) {
+            if (e.getSource().equals(labelImg[i])) {
+                try {//跳转到社交媒体
+                    Desktop.getDesktop().browse(new URI("https://www." + IMAGE_NAME[i] + ".com/HouariZegai"));
+                } catch (Exception ex) {
+
+                }
+            }
+        }
+>>>>>>> eb9b770daf6b100fd56295a1c2bf1c5eb4da09d3
     }
 
     @Override
